@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kaiser.cursomc.domain.Categoria;
 import com.kaiser.cursomc.domain.Pedido;
 import com.kaiser.cursomc.repositories.PedidoRepository;
 import com.kaiser.cursomc.services.exceptions.ObjectNotFoundException;
