@@ -2,21 +2,42 @@ package com.kaiser.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import com.kaiser.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable{	
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Campo Obrigatário")	
+	@Size(min=5, max=80, message = "Campo deve estar entre 5 e 80 caracteres")
 	private String nome;
+	
+	@NotEmpty(message = "Campo Obrigatário")
+	@Email(message = "Email inválido")
 	private String email;
+		
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	@NotEmpty(message = "Campo Obrigatário")
 	private String logradouro;
+	
+	@NotEmpty(message = "Campo Obrigatário")
 	private String numero;
+	
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message = "Campo Obrigatário")
 	private String cep;
 	
+	@NotEmpty(message = "Campo Obrigatário")
 	private String telefone1;
+	
 	private String telefone2;
 	private String telefone3;
 	
