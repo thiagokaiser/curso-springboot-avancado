@@ -32,12 +32,16 @@ public class ClienteResource {
 	private ClienteService service;	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
-		
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {		
 		Cliente obj = service.find(id);		
 		return ResponseEntity.ok().body(obj);		
-		
-	}	
+	}
+	
+	@RequestMapping(value="/email", method=RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@RequestParam(value="value") String email) {		
+		Cliente obj = service.findByEmail(email);		
+		return ResponseEntity.ok().body(obj);		
+	}		
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){		
@@ -68,12 +72,10 @@ public class ClienteResource {
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ClienteDTO>> findAll() {
-		
+	public ResponseEntity<List<ClienteDTO>> findAll() {		
 		List<Cliente> list = service.findAll();
 		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);		
-		
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
@@ -86,8 +88,7 @@ public class ClienteResource {
 		
 		Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
-		return ResponseEntity.ok().body(listDto);		
-		
+		return ResponseEntity.ok().body(listDto);				
 	}
 	
 	@RequestMapping(value="/picture", method=RequestMethod.POST)
